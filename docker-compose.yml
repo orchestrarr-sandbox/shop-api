@@ -1,0 +1,8 @@
+services:
+  testbed:
+    build: .
+    image: orchestrarr-testbed:local
+    container_name: orchestrarr-testbed
+    ports:
+      - "3100:3000"
+    restart: unless-stopped

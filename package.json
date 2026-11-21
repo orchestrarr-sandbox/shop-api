@@ -1,0 +1,22 @@
+{
+  "name": "orchestrarr-testbed",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Deliberately rotten test application for Orchestrarr. Do not reuse.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "mocha --exit test/",
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "express": "4.16.0",
+    "lodash": "4.17.4",
+    "minimist": "0.0.8"
+  },
+  "devDependencies": {
+    "eslint": "7.0.0",
+    "mocha": "8.0.1",
+    "supertest": "4.0.2"
+  }
+}
