@@ -1,6 +1,6 @@
 var express = require('express');
 var _ = require('lodash');
-var minimist = require('./lib/args');
+var minimist = require('minimist');
 var items = require('./lib/items');
 
 var args = minimist(process.argv.slice(2));
