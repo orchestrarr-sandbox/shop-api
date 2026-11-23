@@ -31,3 +31,20 @@ describe('api', function () {
     request(app).get('/nothing/here').expect(404, done);
   });
 });
+
+describe('args parser', function () {
+  var parse = require('../lib/args');
+  var assert = require('assert');
+  it('parses --port in its forms', function () {
+    assert.strictEqual(parse(['--port', '8080']).port, 8080);
+    assert.strictEqual(parse(['--port=9090']).port, 9090);
+    assert.strictEqual(parse([]).port, undefined);
+  });
+  it('handles flags, positionals and ignores __proto__', function () {
+    var r = parse(['-v', 'file', '--no-color', '--__proto__=x']);
+    assert.strictEqual(r.v, 'file');
+    assert.strictEqual(r.color, false);
+    assert.strictEqual(({}).x, undefined);
+    assert.strictEqual(Object.getPrototypeOf(r), Object.prototype);
+  });
+});
