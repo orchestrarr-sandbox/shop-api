@@ -1,5 +1,4 @@
 var express = require('express');
-var _ = require('lodash');
 var minimist = require('minimist');
 var items = require('./lib/items');
 
@@ -36,7 +35,7 @@ app.get('/items', function (req, res) {
       }
     }
   }
-  res.json(_.sortBy(result, 'price'));
+  res.json(result.sort(function (a, b) { return a.price - b.price; }));
 });
 
 app.get('/items/cheap', function (req, res) {
@@ -51,7 +50,7 @@ app.get('/items/cheap', function (req, res) {
       }
     }
   }
-  res.json(_.sortBy(result, 'price'));
+  res.json(result.sort(function (a, b) { return a.price - b.price; }));
 });
 
 app.get('/items/:id', function (req, res) {
