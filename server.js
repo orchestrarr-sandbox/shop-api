@@ -1,21 +1,10 @@
 var express = require('express');
 var _ = require('lodash');
+var minimist = require('minimist');
 var items = require('./lib/items');
 
-// Native replacement for minimist: only --port is used (--port N or --port=N)
-function parsePort(argv) {
-  var port;
-  for (var i = 0; i < argv.length; i++) {
-    if (argv[i] === '--port' && i + 1 < argv.length) {
-      port = argv[i + 1];
-    } else if (argv[i].indexOf('--port=') === 0) {
-      port = argv[i].slice('--port='.length);
-    }
-  }
-  return port;
-}
-
-var PORT = parsePort(process.argv.slice(2)) || process.env.PORT || 3000;
+var args = minimist(process.argv.slice(2));
+var PORT = args.port || process.env.PORT || 3000;
 var unusedSetting = 'never read';
 var app = express();
 var requestCount = 0;
