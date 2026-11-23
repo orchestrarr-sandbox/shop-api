@@ -1,22 +1,10 @@
 var express = require('express');
 var _ = require('lodash');
+var minimist = require('minimist');
 var items = require('./lib/items');
 
-// Reads --port=N or --port N from the command line (no dependency; works on Node 14)
-function portFromArgv(argv) {
-  for (var i = 0; i < argv.length; i++) {
-    var m = /^--port(?:=(.*))?$/.exec(argv[i]);
-    if (m) {
-      var value = m[1] !== undefined ? m[1] : argv[i + 1];
-      if (value !== undefined && value !== '' && !isNaN(Number(value))) {
-        return Number(value);
-      }
-    }
-  }
-  return undefined;
-}
-
-var PORT = portFromArgv(process.argv.slice(2)) || process.env.PORT || 3000;
+var args = minimist(process.argv.slice(2));
+var PORT = args.port || process.env.PORT || 3000;
 var unusedSetting = 'never read';
 var app = express();
 var requestCount = 0;
