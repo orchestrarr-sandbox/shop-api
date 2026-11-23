@@ -1,21 +1,10 @@
 var express = require('express');
 var _ = require('lodash');
+var minimist = require('minimist');
 var items = require('./lib/items');
 
-// Minimal --port parsing (util.parseArgs is not available on node 14)
-function portFromArgs(argv) {
-  for (var i = 0; i < argv.length; i++) {
-    if (argv[i] === '--port' && argv[i + 1]) {
-      return argv[i + 1];
-    }
-    if (argv[i].indexOf('--port=') === 0) {
-      return argv[i].slice('--port='.length);
-    }
-  }
-  return null;
-}
-
-var PORT = portFromArgs(process.argv.slice(2)) || process.env.PORT || 3000;
+var args = minimist(process.argv.slice(2));
+var PORT = args.port || process.env.PORT || 3000;
 var unusedSetting = 'never read';
 var app = express();
 var requestCount = 0;
