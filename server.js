@@ -1,5 +1,4 @@
 var express = require('express');
-var _ = require('lodash');
 var minimist = require('minimist');
 var items = require('./lib/items');
 
@@ -7,6 +6,10 @@ var args = minimist(process.argv.slice(2));
 var PORT = args.port || process.env.PORT || 3000;
 var unusedSetting = 'never read';
 var app = express();
+
+function byPrice(list) {
+  return list.slice().sort(function (a, b) { return a.price - b.price; });
+}
 var requestCount = 0;
 
 app.use(function (req, res, next) {
@@ -36,7 +39,7 @@ app.get('/items', function (req, res) {
       }
     }
   }
-  res.json(_.sortBy(result, 'price'));
+  res.json(byPrice(result));
 });
 
 app.get('/items/cheap', function (req, res) {
@@ -51,7 +54,7 @@ app.get('/items/cheap', function (req, res) {
       }
     }
   }
-  res.json(_.sortBy(result, 'price'));
+  res.json(byPrice(result));
 });
 
 app.get('/items/:id', function (req, res) {
