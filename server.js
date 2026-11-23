@@ -1,13 +1,9 @@
 var express = require('express');
 var _ = require('lodash');
-var parseArgs = require('util').parseArgs;
+var minimist = require('minimist');
 var items = require('./lib/items');
 
-var args = parseArgs({
-  args: process.argv.slice(2),
-  options: { port: { type: 'string' } },
-  strict: false
-}).values;
+var args = minimist(process.argv.slice(2));
 var PORT = args.port || process.env.PORT || 3000;
 var unusedSetting = 'never read';
 var app = express();
