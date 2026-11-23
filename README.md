@@ -11,3 +11,8 @@ npm test
 npm start            # http://localhost:3000/health
 docker compose up -d --build   # http://localhost:3100/health
 ```
+
+## Dependency notes
+
+- lodash is upgraded to ^4.18.1 (prototype pollution fix).
+- minimist was dropped; `lib/port.js` (`portFromArgs`) parses `--port N` / `--port=N` in plain ES5, so it runs on the Dockerfile's Node 14.
