@@ -1,10 +1,21 @@
 var express = require('express');
 var _ = require('lodash');
-var minimist = require('minimist');
 var items = require('./lib/items');
 
-var args = minimist(process.argv.slice(2));
-var PORT = args.port || process.env.PORT || 3000;
+// Only --port is used: parse it by hand (supports --port N and --port=N)
+function parsePort(argv) {
+  for (var i = 0; i < argv.length; i++) {
+    var m = /^--port(?:=(.*))?$/.exec(argv[i]);
+    if (m) {
+      var v = m[1] !== undefined ? m[1] : argv[i + 1];
+      var n = parseInt(v, 10);
+      if (!isNaN(n)) return n;
+    }
+  }
+  return undefined;
+}
+
+var PORT = parsePort(process.argv.slice(2)) || process.env.PORT || 3000;
 var unusedSetting = 'never read';
 var app = express();
 var requestCount = 0;
