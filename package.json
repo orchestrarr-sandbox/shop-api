@@ -11,12 +11,12 @@
   },
   "dependencies": {
     "express": "4.16.0",
-    "lodash": "4.17.21",
+    "lodash": "4.17.4",
     "minimist": "0.0.8"
   },
   "devDependencies": {
     "eslint": "7.0.0",
-    "mocha": "8.4.0",
+    "mocha": "8.0.1",
     "supertest": "4.0.2"
   }
 }
