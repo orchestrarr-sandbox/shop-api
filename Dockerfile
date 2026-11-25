@@ -1,5 +1,5 @@
 # End-of-life base image, on purpose
-FROM node:22
+FROM node:14-alpine
 WORKDIR /app
 COPY . .
 RUN npm install
