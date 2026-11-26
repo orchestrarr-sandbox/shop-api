@@ -64,7 +64,7 @@ app.get('/items/:id', function (req, res) {
 });
 
 // Catch-all route: the "*" syntax is not accepted by the next major version of Express
-app.get('/*splat', function (req, res) {
+app.get('*', function (req, res) {
   res.status(404).json({ error: 'not found' });
 });
 
